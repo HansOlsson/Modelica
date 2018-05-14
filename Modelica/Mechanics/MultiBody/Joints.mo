@@ -673,13 +673,13 @@ this force is an unknown quantity).
     parameter Modelica.Mechanics.MultiBody.Types.Axis n={1,0,0}
       "Cylinder axis resolved in frame_a (= same as in frame_b)"
       annotation (Evaluate=true);
-    parameter SI.Distance cylinderDiameter=worldWrapper.world.defaultJointWidth
+    parameter SI.Distance cylinderDiameter=world.defaultJointWidth
       "Diameter of cylinder"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     input Types.Color cylinderColor=Modelica.Mechanics.MultiBody.Types.Defaults.JointColor
       "Color of cylinder"
       annotation (Dialog(colorSelector=true, tab="Animation", group="if animation = true", enable=animation));
-    input Types.SpecularCoefficient specularCoefficient = worldWrapper.world.defaultSpecularCoefficient
+    input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient
       "Reflection of ambient light (= 0: light is completely absorbed)"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     parameter StateSelect stateSelect=StateSelect.prefer
