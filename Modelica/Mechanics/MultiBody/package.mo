@@ -1507,9 +1507,11 @@ end World;
   package Internal
     model WorldWrapper "For only getting access to parameters of outer world"
       outer Modelica.Mechanics.MultiBody.World world;
+      function gravity=world.gravity;
       annotation(Documentation(info="<html>Adding a component of this model gives access to the parameter values of <pre>outer world</pre>
 as <pre>worldWrapper.world.someParameter</pre>
 while allowing the model to be simulated on its own - or as a base-class where we later add a world-object.
+It also provides access to gravity.
 It is not intended for graphical modeling.</html>"));
     end WorldWrapper;
   end Internal;
