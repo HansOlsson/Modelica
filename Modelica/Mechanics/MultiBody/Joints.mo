@@ -226,17 +226,17 @@ vector \"n\" defining the translation axis
       annotation (Evaluate=true);
     constant SI.Angle phi_offset=0
       "Relative angle offset (angle = phi_offset + phi)";
-    parameter SI.Distance cylinderLength=world.defaultJointLength
+    parameter SI.Distance cylinderLength=worldWrapper.world.defaultJointLength
       "Length of cylinder representing the joint axis"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
-    parameter SI.Distance cylinderDiameter=world.defaultJointWidth
+    parameter SI.Distance cylinderDiameter=worldWrapper.world.defaultJointWidth
       "Diameter of cylinder representing the joint axis"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     input Modelica.Mechanics.MultiBody.Types.Color cylinderColor=Modelica.Mechanics.MultiBody.Types.Defaults.JointColor
       "Color of cylinder representing the joint axis"
       annotation (Dialog(colorSelector=true, tab="Animation", group="if animation = true", enable=animation));
     input Modelica.Mechanics.MultiBody.Types.SpecularCoefficient
-      specularCoefficient =                                                            world.defaultSpecularCoefficient
+      specularCoefficient =                      worldWrapper.world.defaultSpecularCoefficient
       "Reflection of ambient light (= 0: light is completely absorbed)"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     parameter StateSelect stateSelect=StateSelect.prefer
@@ -261,7 +261,7 @@ Possible reasons:
     SI.Angle angle "= phi_offset + phi";
 
   protected
-    outer Modelica.Mechanics.MultiBody.World world;
+    Modelica.Mechanics.MultiBody.Internal.WorldWrapper worldWrapper;
     parameter Real e[3](each final unit="1")=Modelica.Math.Vectors.normalizeWithAssert(n)
       "Unit vector in direction of rotation axis, resolved in frame_a (= same as in frame_b)";
     Frames.Orientation R_rel
@@ -277,7 +277,7 @@ Possible reasons:
       widthDirection={0,1,0},
       r_shape=-e*(cylinderLength/2),
       r=frame_a.r_0,
-      R=frame_a.R) if world.enableAnimation and animation;
+      R=frame_a.R) if worldWrapper.world.enableAnimation and animation;
 
   protected
     Modelica.Mechanics.Rotational.Components.Fixed fixed
@@ -486,20 +486,20 @@ vector \"n\" defining the translation axis
     parameter Modelica.Mechanics.MultiBody.Types.Axis n={0,0,1}
       "Axis of rotation resolved in frame_a (= same as in frame_b)"
       annotation (Evaluate=true);
-    parameter SI.Distance cylinderLength=world.defaultJointLength
+    parameter SI.Distance cylinderLength=worldWrapper.world.defaultJointLength
       "Length of cylinder representing the joint axis"
       annotation (Dialog(group="if animation = true", enable=animation));
-    parameter SI.Distance cylinderDiameter=world.defaultJointWidth
+    parameter SI.Distance cylinderDiameter=worldWrapper.world.defaultJointWidth
       "Diameter of cylinder representing the joint axis"
       annotation (Dialog(group="if animation = true", enable=animation));
     input Types.Color cylinderColor=Modelica.Mechanics.MultiBody.Types.Defaults.JointColor
       "Color of cylinder representing the joint axis"
       annotation (Dialog(colorSelector=true, group="if animation = true", enable=animation));
-    input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient
+    input Types.SpecularCoefficient specularCoefficient = worldWrapper.world.defaultSpecularCoefficient
       "Reflection of ambient light (= 0: light is completely absorbed)"
       annotation (Dialog(group="if animation = true", enable=animation));
   protected
-    outer Modelica.Mechanics.MultiBody.World world;
+    Modelica.Mechanics.MultiBody.Internal.WorldWrapper worldWrapper;
     parameter Real e[3](each final unit="1")=Modelica.Math.Vectors.normalizeWithAssert(n)
       "Unit vector in direction of rotation axis, resolved in frame_a (= same as in frame_b)";
     parameter Real nnx_a[3](each final unit="1")=if abs(e[1]) > 0.1 then {0,1,0} else (if abs(e[2])
@@ -531,7 +531,7 @@ vector \"n\" defining the translation axis
       widthDirection={0,1,0},
       r_shape=-e*(cylinderLength/2),
       r=frame_a.r_0,
-      R=frame_a.R) if world.enableAnimation and animation;
+      R=frame_a.R) if worldWrapper.world.enableAnimation and animation;
   equation
     assert(cardinality(frame_a) > 0,
       "Connector frame_a of revolute joint is not connected");
@@ -673,13 +673,13 @@ this force is an unknown quantity).
     parameter Modelica.Mechanics.MultiBody.Types.Axis n={1,0,0}
       "Cylinder axis resolved in frame_a (= same as in frame_b)"
       annotation (Evaluate=true);
-    parameter SI.Distance cylinderDiameter=world.defaultJointWidth
+    parameter SI.Distance cylinderDiameter=worldWrapper.world.defaultJointWidth
       "Diameter of cylinder"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     input Types.Color cylinderColor=Modelica.Mechanics.MultiBody.Types.Defaults.JointColor
       "Color of cylinder"
       annotation (Dialog(colorSelector=true, tab="Animation", group="if animation = true", enable=animation));
-    input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient
+    input Types.SpecularCoefficient specularCoefficient = worldWrapper.world.defaultSpecularCoefficient
       "Reflection of ambient light (= 0: light is completely absorbed)"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     parameter StateSelect stateSelect=StateSelect.prefer

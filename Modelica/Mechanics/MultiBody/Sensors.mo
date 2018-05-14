@@ -149,13 +149,13 @@ package Sensors "Sensors to measure variables"
       annotation (Placement(transformation(extent={{90,-80},{110,-60}})));
 
   protected
-    outer Modelica.Mechanics.MultiBody.World world;
+    Modelica.Mechanics.MultiBody.Internal.WorldWrapper worldWrapper;
 
     Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow arrow(
       r_head=frame_a.r_0,
       diameter=arrowDiameter,
       color=arrowColor,
-      specularCoefficient) if world.enableAnimation and animation;
+      specularCoefficient) if worldWrapper.world.enableAnimation and animation;
 
   protected
     AbsoluteVelocity absoluteVelocity(resolveInFrame=Modelica.Mechanics.MultiBody.Types.ResolveInFrameA.world) if get_a
@@ -574,14 +574,14 @@ and sequence[2] &ne; sequence[3]. Often used values are:
       annotation (Placement(transformation(extent={{80,-94},{100,-74}})));
 
   protected
-    outer Modelica.Mechanics.MultiBody.World world;
+    Modelica.Mechanics.MultiBody.Internal.WorldWrapper worldWrapper;
 
     Modelica.Mechanics.MultiBody.Visualizers.Advanced.Arrow arrow(
       r=frame_a.r_0,
       r_head=frame_b.r_0 - frame_a.r_0,
       diameter=arrowDiameter,
       color=arrowColor,
-      specularCoefficient) if world.enableAnimation and animation;
+      specularCoefficient) if worldWrapper.world.enableAnimation and animation;
   equation
     connect(relativePosition.frame_a, frame_a) annotation (Line(
         points={{-80,0},{-100,0}},
