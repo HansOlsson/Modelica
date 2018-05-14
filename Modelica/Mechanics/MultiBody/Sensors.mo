@@ -88,7 +88,7 @@ package Sensors "Sensors to measure variables"
       "If get_angles=true: Select angles[1] such that abs(angles[1] - guessAngle1) is a minimum"
       annotation (HideResult=true,Dialog(group="3 angles to rotate the world frame into frame_a along the axes defined in \"sequence\"", enable=get_angles));
 
-    input SI.Diameter arrowDiameter=world.defaultArrowDiameter
+    input SI.Diameter arrowDiameter=worldWrapper.world.defaultArrowDiameter
       "Diameter of absolute arrow from world frame to frame_a"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     input Types.Color arrowColor=Modelica.Mechanics.MultiBody.Types.Defaults.SensorColor
@@ -470,13 +470,13 @@ and sequence[2] &ne; sequence[3]. Often used values are:
       "If get_angles=true: Select angles[1] such that abs(angles[1] - guessAngle1) is a minimum"
       annotation (HideResult=true,Dialog(group="3 angles to rotate frame_a into frame_b along the axes defined in \"sequence\"", enable=get_angles));
 
-    input SI.Diameter arrowDiameter=world.defaultArrowDiameter
+    input SI.Diameter arrowDiameter=worldWrapper.world.defaultArrowDiameter
       "Diameter of relative arrow from frame_a to frame_b"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
     input Types.Color arrowColor=Modelica.Mechanics.MultiBody.Types.Defaults.SensorColor
       "Color of relative arrow from frame_a to frame_b"
       annotation (Dialog(colorSelector=true, tab="Animation", group="if animation = true", enable=animation));
-    input Types.SpecularCoefficient specularCoefficient = world.defaultSpecularCoefficient
+    input Types.SpecularCoefficient specularCoefficient = worldWrapper.world.defaultSpecularCoefficient
       "Reflection of ambient light (= 0: light is completely absorbed)"
       annotation (Dialog(tab="Animation", group="if animation = true", enable=animation));
 
