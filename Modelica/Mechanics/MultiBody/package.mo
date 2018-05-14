@@ -1505,11 +1505,12 @@ of these axes can be set via parameters.
 </html>"));
 end World;
   package Internal
-    model WorldWrapper "For getting access to outer world without any problems"
+    model WorldWrapper "For only getting access to parameters of outer world"
       outer Modelica.Mechanics.MultiBody.World world;
-      annotation(Documentation(info="<html>Adding a component of this model gives access to the <pre>outer world</pre>-object,
-as <pre>worldWrapper.world</pre>
-while allowing the model to be simulated on its own - or as a base-class where we later add a world-object.</html>"));
+      annotation(Documentation(info="<html>Adding a component of this model gives access to the parameter values of <pre>outer world</pre>
+as <pre>worldWrapper.world.someParameter</pre>
+while allowing the model to be simulated on its own - or as a base-class where we later add a world-object.
+It is not intended for graphical modeling.</html>"));
     end WorldWrapper;
   end Internal;
 
