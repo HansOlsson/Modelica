@@ -119,6 +119,15 @@ is always continuous, especially around the start of the penetration at s_rel = 
 </p>
 
 <p>
+In order to have consistent units for non-linear springs the formula <code>c*|s_rel|^n</code>
+is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, where as default <code>s_ref=1</code> and <code>f_ref=c*s_ref</code>,
+which give the same results.
+
+Directly setting the advanced parameters for a non-linear spring gives a cleaner parametrization,
+where the length <code>s_ref</code> is a reference length for the spring, and <code>f_ref</code> is the spring force when <code>s_rel=s_ref</code>.
+</p>
+
+<p>
 In the next figure, a typical simulation with the ElastoGap model is shown
 (<a href=\"modelica://Modelica.Mechanics.Translational.Examples.ElastoGap\">Examples.ElastoGap</a>)
 where the different effects are visualized:
@@ -136,15 +145,6 @@ where the different effects are visualized:
 <div>
 <img src=\"modelica://Modelica/Resources/Images/Mechanics/Translational/Components/ElastoGap.png\" alt=\"Elasto gap\">
 </div>
-
-<p>
-In order to have consistent units for non-linear springs the formula <pre>c*|s_rel|^n</pre>
-is replaced by <pre>f_ref*|s_rel/s_ref|^n</pre>, where as default <pre>s_ref=1</pre> and <pre>f_ref=c*s_ref</pre>,
-which gave the same results.
-
-Directly setting the advanced parameters for a non-linear spring gives a cleaner parametrization,
-where the length <pre>s_ref</pre> is a reference length for the spring, and <pre>f_ref</pre> is the spring force when <pre>s_rel=s_ref</pre>.
-</p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Line(points={{-98,0},{-48,0}}, color={0,127,0}),
