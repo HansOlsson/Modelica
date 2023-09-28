@@ -6,8 +6,10 @@ model ElastoGap "1D translational spring damper combination with gap"
   parameter SI.TranslationalDampingConstant d(final min=0, start=1)
     "Damping constant";
   parameter SI.Position s_rel0=0 "Unstretched spring length";
+  parameter SI.Force f_ref = c*s_ref annotation(Dialog(tab="Advanced"));
+  parameter SI.Length s_ref = 1 annotation(Dialog(tab="Advanced"));
   parameter Real n(final min=1) = 1
-    "Exponent of spring force ( f_c = -c*|s_rel-s_rel0|^n )";
+    "Exponent of spring force ( f_c = -f_ref*|(s_rel-s_rel0)/s_ref|^n )";
   extends Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT;
 
   /*
@@ -26,7 +28,7 @@ equation
   // Modify contact force, so that it is only "pushing" and not
   // "pulling/sticking" and that it is continuous
   contact = s_rel < s_rel0;
-  f_c = smooth(1, noEvent(if contact then -c*abs(s_rel - s_rel0)^n else 0));
+  f_c = smooth(1, noEvent(if contact then -f_ref*abs((s_rel - s_rel0)/s_ref)^n else 0));
   f_d2 = if contact then d*v_rel else 0;
   f_d = smooth(0, noEvent(if contact then (if f_d2 < f_c then f_c else if
     f_d2 > -f_c then -f_c else f_d2) else 0));
@@ -49,7 +51,7 @@ a nonlinear spring force can be modeled:
 </p>
 
 <blockquote><pre>
-desiredContactForce = c*|s_rel - s_rel0|^n + d*<strong>der</strong>(s_rel)
+desiredContactForce = f_ref*|(s_rel - s_rel0)/s_ref|^n + d*<strong>der</strong>(s_rel)
 </pre></blockquote>
 
 <p>
@@ -134,6 +136,15 @@ where the different effects are visualized:
 <div>
 <img src=\"modelica://Modelica/Resources/Images/Mechanics/Translational/Components/ElastoGap.png\" alt=\"Elasto gap\">
 </div>
+
+<p>
+In order to have consistent units for non-linear springs the formula <pre>c*|s_rel|^n</pre>
+is replaced by <pre>f_ref*|s_rel/s_ref|^n</pre>, where as default <pre>s_ref=1</pre> and <pre>f_ref=c*s_ref</pre>,
+which gave the same results.
+
+Directly setting the advanced parameters for a non-linear spring gives a cleaner parametrization,
+where the length <pre>s_ref</pre> is a reference length for the spring, and <pre>f_ref</pre> is the spring force when <pre>s_rel=s_ref</pre>.
+</p>
 </html>"),
     Icon(coordinateSystem(preserveAspectRatio=true, extent={{-100,-100},{
             100,100}}), graphics={Line(points={{-98,0},{-48,0}}, color={0,127,0}),
