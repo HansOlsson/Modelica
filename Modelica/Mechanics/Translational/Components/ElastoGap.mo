@@ -121,11 +121,12 @@ is always continuous, especially around the start of the penetration at s_rel = 
 
 <p>
 In order to have consistent units for non-linear springs the formula <code>c*|s_rel|^n</code>
-is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, where as default <code>s_ref=1</code> and <code>f_ref=c*s_ref</code>,
-which give the same results.
+is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, where as default <code>s_ref&nbsp;=&nbsp;1</code>
+and <code>f_ref&nbsp;= c*s_ref</code>, which give the same results.
 
-Directly setting the advanced parameters for a non-linear spring gives a cleaner parametrization,
-where the length <code>s_ref</code> is a reference length for the spring, and <code>f_ref</code> is the spring force when <code>s_rel=s_ref</code>.
+Directly setting the advanced parameters for a&nbsp;non-linear spring gives a&nbsp;cleaner parametrization,
+where the length <code>s_ref</code> is a&nbsp;reference length for the spring, and <code>f_ref</code> is
+the spring force when <code>s_rel&nbsp;=&nbsp;s_ref</code>.
 </p>
 
 <p>
