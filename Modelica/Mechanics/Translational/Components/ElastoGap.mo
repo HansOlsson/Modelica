@@ -6,8 +6,8 @@ model ElastoGap "1D translational spring damper combination with gap"
   parameter SI.TranslationalDampingConstant d(final min=0, start=1)
     "Damping constant";
   parameter SI.Position s_rel0=0 "Unstretched spring length";
-  parameter SI.Force f_ref = c*s_ref annotation(Dialog(tab="Advanced"));
-  parameter SI.Length s_ref = 1 annotation(Dialog(tab="Advanced"));
+  parameter SI.Force f_ref = c*s_ref "Reference spring force at s_ref" annotation(Dialog(tab="Advanced"));
+  parameter SI.Length s_ref = 1 "Reference relative compression at which f_c = f_ref" annotation(Dialog(tab="Advanced"));
   parameter Real n(final min=1) = 1
     "Exponent of spring force ( f_c = -f_ref*|(s_rel-s_rel0)/s_ref|^n )";
   extends Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT;
@@ -24,11 +24,13 @@ protected
   SI.Force f_d2 "Linear damping force";
   SI.Force f_d
     "Linear damping force which is limited by spring force (|f_d| <= |f_c|)";
+  Real ratio "Scaling ratio of relative compression to s_ref";
 equation
   // Modify contact force, so that it is only "pushing" and not
   // "pulling/sticking" and that it is continuous
   contact = s_rel < s_rel0;
-  f_c = smooth(1, noEvent(if contact then -f_ref*abs((s_rel - s_rel0)/s_ref)^n else 0));
+  ratio = (s_rel - s_rel0)/s_ref;
+  f_c = smooth(1, noEvent(if contact then -f_ref*abs(ratio)^n else 0));
   f_d2 = if contact then d*v_rel else 0;
   f_d = smooth(0, noEvent(if contact then (if f_d2 < f_c then f_c else if
     f_d2 > -f_c then -f_c else f_d2) else 0));
