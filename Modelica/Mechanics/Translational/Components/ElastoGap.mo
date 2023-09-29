@@ -6,8 +6,8 @@ model ElastoGap "1D translational spring damper combination with gap"
   parameter SI.TranslationalDampingConstant d(final min=0, start=1)
     "Damping constant";
   parameter SI.Position s_rel0=0 "Unstretched spring length";
-  parameter SI.Force f_ref = c*s_ref annotation(Dialog(tab="Advanced"));
-  parameter SI.Length s_ref = 1 annotation(Dialog(tab="Advanced"));
+  parameter SI.Force f_ref = c*s_ref "Reference spring force at s_ref" annotation(Dialog(tab="Advanced"));
+  parameter SI.Length s_ref = 1 "Reference relative compression at which f_c = f_ref" annotation(Dialog(tab="Advanced"));
   parameter Real n(final min=1) = 1
     "Exponent of spring force ( f_c = -f_ref*|(s_rel-s_rel0)/s_ref|^n )";
   extends Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT;
@@ -24,14 +24,15 @@ protected
   SI.Force f_d2 "Linear damping force";
   SI.Force f_d
     "Linear damping force which is limited by spring force (|f_d| <= |f_c|)";
+  Real ratio "Scaling ratio of relative compression to s_ref";
 equation
   // Modify contact force, so that it is only "pushing" and not
   // "pulling/sticking" and that it is continuous
   contact = s_rel < s_rel0;
-  f_c = smooth(1, noEvent(if contact then -f_ref*abs((s_rel - s_rel0)/s_ref)^n else 0));
+  ratio = (s_rel - s_rel0)/s_ref;
+  f_c = smooth(1, noEvent(if contact then -f_ref*abs(ratio)^n else 0));
   f_d2 = if contact then d*v_rel else 0;
-  f_d = smooth(0, noEvent(if contact then (if f_d2 < f_c then f_c else if
-    f_d2 > -f_c then -f_c else f_d2) else 0));
+  f_d = smooth(0, noEvent(if contact then min(max(f_d2, f_c), -f_c) else 0));
   f = f_c + f_d;
   lossPower = f_d*v_rel;
   annotation (
@@ -120,11 +121,12 @@ is always continuous, especially around the start of the penetration at s_rel = 
 
 <p>
 In order to have consistent units for non-linear springs the formula <code>c*|s_rel|^n</code>
-is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, where as default <code>s_ref=1</code> and <code>f_ref=c*s_ref</code>,
-which give the same results.
+is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, where as default <code>s_ref&nbsp;=&nbsp;1</code>
+and <code>f_ref&nbsp;= c*s_ref</code>, which give the same results.
 
-Directly setting the advanced parameters for a non-linear spring gives a cleaner parametrization,
-where the length <code>s_ref</code> is a reference length for the spring, and <code>f_ref</code> is the spring force when <code>s_rel=s_ref</code>.
+Directly setting the advanced parameters for a&nbsp;non-linear spring gives a&nbsp;cleaner parametrization,
+where the length <code>s_ref</code> is a&nbsp;reference length for the spring, and <code>f_ref</code> is
+the spring force when <code>s_rel&nbsp;=&nbsp;s_ref</code>.
 </p>
 
 <p>
