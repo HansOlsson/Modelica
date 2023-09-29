@@ -32,8 +32,7 @@ equation
   ratio = (s_rel - s_rel0)/s_ref;
   f_c = smooth(1, noEvent(if contact then -f_ref*abs(ratio)^n else 0));
   f_d2 = if contact then d*v_rel else 0;
-  f_d = smooth(0, noEvent(if contact then (if f_d2 < f_c then f_c else if
-    f_d2 > -f_c then -f_c else f_d2) else 0));
+  f_d = smooth(0, noEvent(if contact then min(max(f_d2, f_c), -f_c) else 0));
   f = f_c + f_d;
   lossPower = f_d*v_rel;
   annotation (
