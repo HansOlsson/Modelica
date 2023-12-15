@@ -6,8 +6,8 @@ model ElastoGap "1D translational spring damper combination with gap"
   parameter SI.TranslationalDampingConstant d(final min=0, start=1)
     "Damping constant";
   parameter SI.Position s_rel0=0 "Unstretched spring length";
-  parameter SI.Force f_ref = c*s_ref "Reference spring force at s_ref" annotation(Dialog(tab="Advanced"));
-  parameter SI.Length s_ref = 1 "Reference relative compression at which f_c = f_ref" annotation(Dialog(tab="Advanced"));
+  parameter SI.Force f_ref(min=0) = c*s_ref "Reference spring force at s_ref" annotation(Dialog(tab="Advanced"));
+  parameter SI.Length s_ref(min=Modelica.Constants.eps) = 1 "Reference relative compression at which f_c = f_ref" annotation(Dialog(tab="Advanced"));
   parameter Real n(final min=1) = 1
     "Exponent of spring force ( f_c = -f_ref*|(s_rel-s_rel0)/s_ref|^n )";
   extends Modelica.Thermal.HeatTransfer.Interfaces.PartialElementaryConditionalHeatPortWithoutT;
