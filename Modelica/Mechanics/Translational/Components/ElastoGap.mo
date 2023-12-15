@@ -115,18 +115,23 @@ If s_rel0 = 0, the equations are:
 </pre></blockquote>
 
 <p>
-Note, since |f_d| &le; |f_c|, pulling forces cannot occur and the contact force
-is always continuous, especially around the start of the penetration at s_rel = s_rel0.
+Note, since |f_d|&nbsp;&le;&nbsp;|f_c|, pulling forces cannot occur and the contact force
+is always continuous, especially around the start of the penetration at s_rel&nbsp;= s_rel0.
+On the contrary, this leads to the contact force <code>f&nbsp;=&nbsp;0</code> even if
+<code>contact&nbsp;= true</code> is still indicated around the end of the penetration.
+This is because <code>contact</code> indicates only the occurance of geometry penetration.
 </p>
 
 <p>
-In order to have consistent units for non-linear springs the formula <code>c*|s_rel|^n</code>
-is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, where as default <code>s_ref&nbsp;=&nbsp;1</code>
-and <code>f_ref&nbsp;= c*s_ref</code>, which give the same results.
-
-Directly setting the advanced parameters for a&nbsp;non-linear spring gives a&nbsp;cleaner parametrization,
-where the length <code>s_ref</code> is a&nbsp;reference length for the spring, and <code>f_ref</code> is
-the spring force when <code>s_rel&nbsp;=&nbsp;s_ref</code>.
+In order to have consistent units for nonlinear springs, the term <code>c*|s_rel|^n</code>
+is replaced by <code>f_ref*|s_rel/s_ref|^n</code>, whereby <code>s_ref</code> is a&nbsp;reference
+length for the spring and <code>f_ref</code> is the spring force when
+<code>s_rel&nbsp;=&nbsp;s_ref</code>. The default values <code>s_ref&nbsp;=&nbsp;1</code>
+and <code>f_ref&nbsp;= c*s_ref</code> lead to the same results of the two above-mentioned terms.
+Setting the advanced parameters <code>s_ref</code> and <code>f_ref</code> for a&nbsp;nonlinear
+spring directly gives a&nbsp;cleaner and straightforward parametrization.
+For simplicity reasons, both <code>s_ref</code> and <code>f_ref</code> are considered being
+positive.
 </p>
 
 <p>
