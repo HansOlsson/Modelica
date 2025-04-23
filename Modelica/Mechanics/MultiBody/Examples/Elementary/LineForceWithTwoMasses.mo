@@ -24,7 +24,7 @@ model LineForceWithTwoMasses
   Modelica.Mechanics.MultiBody.Joints.Assemblies.JointUPS jointUPS(nAxis_ia={0.7,1.2,0}, animation=
        true) annotation (Placement(transformation(extent={{-12,52},{12,28}})));
   Modelica.Mechanics.MultiBody.Parts.Body body1(
-    r_CM=0.2*jointUPS.eAxis_ia,
+    r_CM=SI.Length(0.2)*jointUPS.eAxis_ia,
     cylinderDiameter=0.05,
     animation=true,
     m=m,
@@ -32,7 +32,7 @@ model LineForceWithTwoMasses
     I_22=0,
     I_33=0) annotation (Placement(transformation(extent={{-20,18},{-40,38}})));
   Modelica.Mechanics.MultiBody.Parts.Body body2(
-    r_CM=-0.2*jointUPS.eAxis_ia,
+    r_CM=-SI.Length(0.2)*jointUPS.eAxis_ia,
     cylinderDiameter=0.05,
     animation=true,
     m=m,
