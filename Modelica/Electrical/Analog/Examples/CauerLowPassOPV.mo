@@ -5,10 +5,13 @@ model CauerLowPassOPV "Cauer low pass filter with operational amplifiers"
   parameter SI.Capacitance l1=1.304 "Filter coefficient i1";
   parameter SI.Capacitance l2=0.8586 "Filter coefficient i2";
   parameter SI.Capacitance c1=1.072 "Filter coefficient c1";
-  parameter SI.Capacitance c2=1/(1.704992^2*l1)
+  parameter SI.AngularFrequency w1=1.704992;
+  parameter SI.Resistance Rnom=1;
+  parameter SI.Capacitance c2=1/((Rnom*w1)^2*l1)
     "Filter coefficient c2";
   parameter SI.Capacitance c3=1.682 "Filter coefficient c3";
-  parameter SI.Capacitance c4=1/(1.179945^2*l2)
+  parameter SI.AngularFrequency w2=1.179945;
+  parameter SI.Capacitance c4=1/((Rnom*w2)^2*l2)
     "Filter coefficient c4";
   parameter SI.Capacitance c5=0.7262 "Filter coefficient c5";
   Modelica.Electrical.Analog.Basic.Capacitor C1(C=c1 + c2, v(start=0, fixed=true))
@@ -21,19 +24,19 @@ model CauerLowPassOPV "Cauer low pass filter with operational amplifiers"
     annotation (Placement(transformation(extent={{-30,30},{-10,50}})));
   Modelica.Electrical.Analog.Basic.Capacitor C5(C=c2)
     annotation (Placement(transformation(extent={{-30,-120},{-10,-100}})));
-  Modelica.Electrical.Analog.Basic.Resistor R1(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R1(R=Rnom)
     annotation (Placement(transformation(extent={{-240,-50},{-220,-30}})));
-  Modelica.Electrical.Analog.Basic.Resistor R2(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R2(R=Rnom)
     annotation (Placement(transformation(extent={{-240,-10},{-220,10}})));
-  Modelica.Electrical.Analog.Basic.Resistor R3(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R3(R=Rnom)
     annotation (Placement(transformation(extent={{-193,50},{-173,70}})));
   Modelica.Electrical.Analog.Ideal.IdealOpAmp3Pin Op1
     annotation (Placement(transformation(extent={{-200,-70},{-160,-30}})));
   Modelica.Electrical.Analog.Basic.Ground G
     annotation (Placement(transformation(extent={{-188,-96},{-174,-80}})));
-  Modelica.Electrical.Analog.Basic.Resistor R4(R=-1)
+  Modelica.Electrical.Analog.Basic.Resistor R4(R=-Rnom)
     annotation (Placement(transformation(extent={{-140,-60},{-120,-40}})));
-  Modelica.Electrical.Analog.Basic.Resistor R5(R=-1)
+  Modelica.Electrical.Analog.Basic.Resistor R5(R=-Rnom)
     annotation (Placement(transformation(extent={{-140,-100},{-120,-80}})));
   Modelica.Electrical.Analog.Ideal.IdealOpAmp3Pin Op2
     annotation (Placement(transformation(extent={{-100,-70},{-60,-30}})));
@@ -41,17 +44,17 @@ model CauerLowPassOPV "Cauer low pass filter with operational amplifiers"
     annotation (Placement(transformation(extent={{4,-72},{46,-30}})));
   Modelica.Electrical.Analog.Basic.Ground G1
     annotation (Placement(transformation(extent={{-87,-96},{-73,-80}})));
-  Modelica.Electrical.Analog.Basic.Resistor R6(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R6(R=Rnom)
     annotation (Placement(transformation(extent={{-31,-10},{-11,10}})));
-  Modelica.Electrical.Analog.Basic.Resistor R7(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R7(R=Rnom)
     annotation (Placement(transformation(extent={{-31,-60},{-11,-40}})));
   Modelica.Electrical.Analog.Basic.Capacitor C6(C=c2 + c3 + c4)
     annotation (Placement(transformation(extent={{9,10},{29,30}})));
-  Modelica.Electrical.Analog.Basic.Resistor R8(R=-1)
+  Modelica.Electrical.Analog.Basic.Resistor R8(R=-Rnom)
     annotation (Placement(transformation(extent={{60,-10},{80,10}})));
-  Modelica.Electrical.Analog.Basic.Resistor R9(R=-1)
+  Modelica.Electrical.Analog.Basic.Resistor R9(R=-Rnom)
     annotation (Placement(transformation(extent={{60,-60},{80,-40}})));
-  Modelica.Electrical.Analog.Basic.Resistor R10(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R10(R=Rnom)
     annotation (Placement(transformation(extent={{160,-60},{180,-40}})));
   Modelica.Electrical.Analog.Ideal.IdealOpAmp3Pin Op4
     annotation (Placement(transformation(extent={{100,-70},{140,-30}})));
@@ -63,7 +66,7 @@ model CauerLowPassOPV "Cauer low pass filter with operational amplifiers"
     annotation (Placement(transformation(extent={{160,-150},{180,-130}})));
   Modelica.Electrical.Analog.Basic.Capacitor C9(C=c4 + c5)
     annotation (Placement(transformation(extent={{208,-10},{228,10}})));
-  Modelica.Electrical.Analog.Basic.Resistor R11(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R11(R=Rnom)
     annotation (Placement(transformation(extent={{209,30},{229,50}})));
 protected
   Modelica.Electrical.Analog.Interfaces.NegativePin n1

@@ -5,12 +5,15 @@ model CauerLowPassAnalog "Cauer low pass filter with analog components"
   parameter SI.Inductance l1=1.304 "Filter coefficient I1";
   parameter SI.Inductance l2=0.8586 "Filter coefficient I2";
   parameter SI.Capacitance c1=1.072 "Filter coefficient c1";
-  parameter SI.Capacitance c2=1/(1.704992^2*l1)
+  parameter SI.AngularFrequency w1=1.704992 "Angular frequency for I1 and c2";
+  parameter SI.Capacitance c2=1/(w1^2*l1)
     "Filter coefficient c2";
   parameter SI.Capacitance c3=1.682 "Filter coefficient c3";
-  parameter SI.Capacitance c4=1/(1.179945^2*l2)
+  parameter SI.AngularFrequency w2=1.179945 "Angular frequency for I2 and c4";
+  parameter SI.Capacitance c4=1/(w2^2*l2)
     "Filter coefficient c4";
   parameter SI.Capacitance c5=0.7262 "Filter coefficient c5";
+  parameter SI.Resistance Rnom=1;
   Modelica.Electrical.Analog.Basic.Ground G
     annotation (Placement(transformation(extent={{-10,-90},{10,-70}})));
   Modelica.Electrical.Analog.Basic.Capacitor C1(C=c1, v(start=0, fixed=true))
@@ -37,9 +40,9 @@ Modelica.Electrical.Analog.Basic.Capacitor C2(C=c2)
     annotation (Placement(transformation(extent={{-40,60},{-20,80}})));
   Modelica.Electrical.Analog.Basic.Inductor L2(L=l2,i(start=0, fixed=true))
     annotation (Placement(transformation(extent={{20,60},{40,80}})));
-  Modelica.Electrical.Analog.Basic.Resistor R1(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R1(R=Rnom)
     annotation (Placement(transformation(extent={{-100,20},{-80,40}})));
-  Modelica.Electrical.Analog.Basic.Resistor R2(R=1)
+  Modelica.Electrical.Analog.Basic.Resistor R2(R=Rnom)
     annotation (Placement(transformation(
         origin={100,-20},
         extent={{-10,-10},{10,10}},
