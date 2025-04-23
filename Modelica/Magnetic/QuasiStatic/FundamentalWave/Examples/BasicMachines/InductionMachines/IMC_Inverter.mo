@@ -9,7 +9,8 @@ model IMC_Inverter
   parameter SI.Frequency fNominal=50 "Nominal frequency";
   parameter SI.Frequency f=50 "Maximum operational frequency";
   parameter SI.Time tRamp=1 "Frequency ramp";
-  parameter SI.Torque TLoad=161.4*min(1, fNominal/abs(f)) "Nominal load torque";
+  parameter SI.Torque TloadMax=161.4 "Load torque at maximum frequency";
+  parameter SI.Torque TLoad=TloadMax*min(1, fNominal/abs(f)) "Nominal load torque";
   parameter SI.Time tStep=1.2 "Time of load torque step";
   parameter SI.Inertia JLoad=0.29 "Load's moment of inertia";
   SI.Frequency fs=ramp.y "Stator frequency";
