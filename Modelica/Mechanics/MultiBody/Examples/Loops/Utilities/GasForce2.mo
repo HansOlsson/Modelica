@@ -26,14 +26,13 @@ equation
   x = 1 - s_rel/L;
   v_rel = der(s_rel);
 
-  press = 1e5 * (
+  press = SI.AbsolutePressure(1e5) * (
     if v_rel < 0 then (
       if x < 0.986061 then 177.4132*x^4 - 287.2189*x^3 + 151.8252*x^2 - 24.9973*x + 2.4
       else 2836360*x^4 - 10569296*x^3 + 14761814*x^2 - 9158505*x + 2129670)
     else (
       if x > 0.933 then -3929704*x^4 + 14748765*x^3 - 20747000*x^2 + 12964477*x - 3036495
-      else 145.930*x^4 - 131.707*x^3 + 17.3438*x^2 + 17.9272*x + 2.4))
-    annotation(__Dymola_UnitChecking(enable=false));
+      else 145.930*x^4 - 131.707*x^3 + 17.3438*x^2 + 17.9272*x + 2.4));
 
   f = -press*pi*d^2/4;
 
