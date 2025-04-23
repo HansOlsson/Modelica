@@ -14,12 +14,12 @@ model ParallelResonance "Parallel resonance circuit"
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,70})));
-  Basic.Inductor inductor1(i(fixed=true), L=0.1/(2*pi)) annotation (Placement(
+  Basic.Inductor inductor1(i(fixed=true), L=Modelica.Units.SI.Inductance(0.1)/(2*pi)) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,40})));
-  Basic.Capacitor capacitor1(v(fixed=true), C=0.001/(2*pi)) annotation (
+  Basic.Capacitor capacitor1(v(fixed=true), C=Modelica.Units.SI.Capacitance(0.001)/(2*pi)) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
@@ -42,16 +42,16 @@ model ParallelResonance "Parallel resonance circuit"
         origin={-40,-60})));
   Basic.Ground ground2
     annotation (Placement(transformation(extent={{-50,-100},{-30,-80}})));
-  Basic.Resistor resistor2(R=0.5) annotation (Placement(transformation(
+  Basic.Resistor resistor2(R=resistor1.R) annotation (Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,-30})));
-  Basic.Inductor inductor2(i(fixed=true), L=0.1/(2*pi)) annotation (Placement(
+  Basic.Inductor inductor2(i(fixed=true), L=inductor1.L) annotation (Placement(
         transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
         origin={-10,-60})));
-  Basic.Capacitor capacitor2(v(fixed=true), C=0.001/(2*pi)) annotation (
+  Basic.Capacitor capacitor2(v(fixed=true), C=capacitor1.C) annotation (
       Placement(transformation(
         extent={{-10,-10},{10,10}},
         rotation=270,
