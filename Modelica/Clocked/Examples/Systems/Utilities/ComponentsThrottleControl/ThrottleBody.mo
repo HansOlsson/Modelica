@@ -5,7 +5,7 @@ block ThrottleBody "Basic throttle body equations"
 parameter Modelica.Units.NonSI.Pressure_bar P_0 = 1 "Atmospheric pressure (bar)";
 protected
   Real m_ai(start=0, fixed=true, unit="g") "Mass";
-  Modelica.Units.NonSI.Angle_deg f_Theta "Auxiliary variable";
+  Real f_Theta "Auxiliary variable";
   Real g_Pm "Auxiliary variable";
 public
   Modelica.Blocks.Interfaces.RealInput Theta(unit="deg") "Throttle angle (deg)"
@@ -25,7 +25,8 @@ protected
 equation
 
 der(m_ai) = f_Theta * g_Pm;
-f_Theta = 2.821 - 0.05231*Theta + 0.10299*Theta^2 - 0.00063*Theta^3; // different to paper 0.0063*Theta^3
+  f_Theta = 2.821 - 0.05231*Theta + 0.10299*Theta^2 - 0.00063*Theta^3
+    annotation(__Dymola_UnitChecking(enable=false)); // different to paper 0.0063*Theta^3
 // Note: If the flow direction changes, i.e. Pm>P_0 the logic will fail since sqrt(-x)
 tmp1 = Pm / P_0;
 tmp2 = P_0 / Pm;

@@ -17,5 +17,6 @@ equation
 
  T_torque_e = -181.3 + 379.36*m_a + 21.91*AFR - 0.85*AFR^2 + 0.26*sigma
  - 0.0028*sigma^2 + 0.027*N - 0.000107*N^2 + 0.00048*N*sigma
- + 2.55*sigma*m_a - 0.05*sigma^2*m_a;
+    + 2.55*sigma*m_a - 0.05*sigma^2*m_a
+    annotation(__Dymola_UnitChecking(enable=false));
 end TorqueGeneration;

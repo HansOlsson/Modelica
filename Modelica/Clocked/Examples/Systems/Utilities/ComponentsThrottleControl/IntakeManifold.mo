@@ -19,5 +19,6 @@ block IntakeManifold "Dynamics of the intake manifold"
     annotation (Placement(transformation(extent={{100,-70},{120,-50}})));
 equation
   der(P_m) = RTVmRatio*(m_ai_der - m_ao_der);
-  m_ao_der = -0.366 + 0.08979*N*P_m - 0.0337*N*P_m^2 + 0.0001*N^2*P_m;
+  m_ao_der = -0.366 + 0.08979*N*P_m - 0.0337*N*P_m^2 + 0.0001*N^2*P_m
+    annotation(__Dymola_UnitChecking(enable=false));
 end IntakeManifold;
