@@ -31,7 +31,7 @@ partial model Machine "Base model of machines"
     annotation (Dialog(tab="Nominal resistances and inductances"));
   parameter Real effectiveStatorTurns=1
     "Effective number of stator turns";
-  parameter SI.Inductance Lssigma(start=SI.Resistance(3)*(1 - sqrt(1 -
+  parameter SI.Inductance Lssigma(start=3*(1 - sqrt(1 -
         0.0667))/(2*pi*fsNominal)) "Stator stray inductance per phase"
     annotation (Dialog(tab="Nominal resistances and inductances"));
   parameter Magnetic.FundamentalWave.Types.SalientInductance L0(d(start=1), q(

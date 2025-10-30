@@ -8,6 +8,7 @@ model LineForceWithTwoMasses
   SI.Force body_f_diff[3]=bodyBox1.frame_b.f - bodyBox2.frame_b.f
     "Difference of cut-forces in bodyBox1 and bodyBox2";
 
+  parameter SI.Length length=0.2;
   inner Modelica.Mechanics.MultiBody.World world annotation (Placement(
         transformation(extent={{-90,-10},{-70,10}})));
   Modelica.Mechanics.MultiBody.Joints.Revolute revolute1(phi(fixed=true), w(
@@ -24,7 +25,7 @@ model LineForceWithTwoMasses
   Modelica.Mechanics.MultiBody.Joints.Assemblies.JointUPS jointUPS(nAxis_ia={0.7,1.2,0}, animation=
        true) annotation (Placement(transformation(extent={{-12,52},{12,28}})));
   Modelica.Mechanics.MultiBody.Parts.Body body1(
-    r_CM=SI.Length(0.2)*jointUPS.eAxis_ia,
+    r_CM=length*jointUPS.eAxis_ia,
     cylinderDiameter=0.05,
     animation=true,
     m=m,
@@ -32,7 +33,7 @@ model LineForceWithTwoMasses
     I_22=0,
     I_33=0) annotation (Placement(transformation(extent={{-20,18},{-40,38}})));
   Modelica.Mechanics.MultiBody.Parts.Body body2(
-    r_CM=-SI.Length(0.2)*jointUPS.eAxis_ia,
+    r_CM=-length*jointUPS.eAxis_ia,
     cylinderDiameter=0.05,
     animation=true,
     m=m,
